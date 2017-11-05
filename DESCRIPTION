@@ -1,0 +1,18 @@
+Package: TSAPA
+Type: Package
+Title: Identificantion of tissue-specific alternative polyadenylation
+        sites
+Version: 0.1.0
+Author: MoliangChen <chengmolia@126.com>
+Maintainer: BMILAB(Biology Medical Informatics) <chengmolia@126.com>
+Description: TSAPA is an R package for identification of tissue-specific alternative polyadenylation sites in plants. 
+    This package can identify tissue-specific and constitutive poly(A) sites (tsPAs and csPAs) using the information entropy method. 
+    A generic model for rice japonica has been trained and integrated in TSAPA, which can be directly applied to predict tsPAs from any new data of rice japonica without additional inputs. 
+    TSAPA also allows users to customize the classification model by selecting desirable features or classifiers for model training on their own data. 
+    Given a list of poly(A) sites and the corresponding reference genome sequence, TSAPA is capable of predicting tsPAs for species other than rice japonica. 
+    TSAPA can also be used to identify and predict tsPAs in intergenic regions. 
+License: GPL (>= 2)
+LazyData: true
+Depends: R (>= 3.1.0), e1071, TCC, seqinr, stringr, Biostrings, NuPoP,
+        adabag, randomForest
+Built: R 3.3.2; ; 2017-11-05 09:12:50 UTC; windows
