@@ -15,4 +15,4 @@ License: GPL (>= 2)
 LazyData: true
 Depends: R (>= 3.1.0), e1071, TCC, seqinr, stringr, Biostrings, NuPoP,
         adabag, randomForest
-Built: R 3.3.2; ; 2017-11-05 09:12:50 UTC; windows
+Built: R 3.3.2; ; 2017-11-05 12:39:05 UTC; windows
