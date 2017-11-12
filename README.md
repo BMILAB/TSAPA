@@ -19,7 +19,7 @@ Install
 ---------
 
 * In the console of R, run code:
-libraray(TSAPA)
+library(TSAPA)
 
 Congratulate! This TSAPA package installed complete on the local computer.
 
