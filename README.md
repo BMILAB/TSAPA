@@ -44,36 +44,36 @@ Section 2
 ---------
 * With the annotation file and the information table of ploy(A) sites, to obtain the APA feature.
 ```
-path <- system.file(“extdata”,”annotation.csv”,package = “TSAPA”)
-annotation <- read.table(path,sep=“,”,header=T,stringsAsFactors = FALSE)
-path1 <- system.file(“extdata”,”tsPA_coordinate.csv”,package = “TSAPA”)
-tsPA <- read.table(path1,sep=“,”,header=T,stringsAsFactors = FALSE)
+path <- system.file("extdata","annotation.csv",package = "TSAPA")
+annotation <- read.table(path,sep=",",header=T,stringsAsFactors = FALSE)
+path1 <- system.file("extdata","tsPA_coordinate.csv",package = "TSAPA")
+tsPA <- read.table(path1,sep=",",header=T,stringsAsFactors = FALSE)
 apa_feature <- apa_context(annotation,tsPA)
 ```
 * If users provide the annotation file of the genome, then the annotation information of ploy(A) sites can be obtained.
 ```
-genome <- read.table(system.file(“extdata”,”japonica.csv”,package = “TSAPA”),sep=“,”,header=T,stringsAsFactors = FALSE)
-pagene <- read.table(system.file(“extdata”,”annotation.csv “,package = “TSAPA”),sep=“,”,header=T,stringsAsFactors = FALSE)
+genome <- read.table(system.file("extdata","japonica.csv",package = "TSAPA"),sep=",",header=T,stringsAsFactors = FALSE)
+pagene <- read.table(system.file("extdata","annotation.csv",package = "TSAPA"),sep=",",header=T,stringsAsFactors = FALSE)
 > gene_info <- geneinfo(genome,pagene,12429)
 ```
 * Given a genome sequence file and a list of poly(A) sites, user can extracts the sequences of ploy(A) sites.
 ```
-rice <- readDNAStringSet(system.file(“extdata”,”rice_tsetseq.fasta”,package = “TSAPA”))
-tsPA <- read.table(system.file(“extdata”,”extract_seq_PA.csv”,package = “TSAPA”),sep=“,”,header=T,stringsAsFactors = FALSE)
-extract_seq(rice,tsPA,”tsPA.fasta”,-100,100)
+rice <- readDNAStringSet(system.file("extdata","rice_tsetseq.fasta",package = "TSAPA"))
+tsPA <- read.table(system.file("extdata","extract_seq_PA.csv",package = "TSAPA"),sep=",",header=T,stringsAsFactors = FALSE)
+extract_seq(rice,tsPA,"tsPA.fasta",-100,100)
 ```
 * With the same sequence file, the features of Z-curve, nucleosome occupancy scores, K-grams can be calculated. 
 ```
-zcurve_feature <- Zcurve(system.file(“extdata”,”sample.fasta”,package = “TSAPA”))
-nupop_feature<-nupop(system.file(“extdata”,”sample.fasta”,package = “TSAPA”),100,150,151,200)
-gram <- gram(system.file(“extdata”,”sample.fasta”,package = “TSAPA”),1)
+zcurve_feature <- Zcurve(system.file("extdata","sample.fasta",package = "TSAPA"))
+nupop_feature<-nupop(system.file("extdata","sample.fasta",package = "TSAPA"),100,150,151,200)
+gram <- gram(system.file("extdata","sample.fasta",package = "TSAPA"),1)
 ```
 * Using the sequence file and the motif file, the FHMM_feature and pwm_feature can be obtained.
 ```
-FHMM_model <- FHMM(system.file(“extdata”,”6-gram.fasta”,package = “TSAPA”))
-fhmm_feature <- FHMM_feature(6,system.file(“extdata”,”sample.fasta”,package = “TSAPA”),FHMM_model)
-pwm_model <- pwm(system.file(“extdata”,”6-gram.fasta”,package = “TSAPA”))
-pwmfeature <- pwm_feature(6,system.file(“extdata”,”sample.fasta”,package = “TSAPA”),pwm_model)
+FHMM_model <- FHMM(system.file("extdata","6-motif.fasta",package = "TSAPA"))
+fhmm_feature <- FHMM_feature(6,system.file("extdata","sample.fasta",package = "TSAPA"),FHMM_model)
+pwm_model <- pwm(system.file("extdata","6-motif.fasta",package = "TSAPA"))
+pwmfeature <- pwm_feature(6,system.file("extdata","sample.fasta",package = "TSAPA"),pwm_model)
 ```
 * With the file of feature space, user can use SVM-RFE to feature selection.
 ```
