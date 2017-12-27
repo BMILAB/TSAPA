@@ -9,9 +9,13 @@ Zcurve                  Calculate the Zcurve for sequence
 apa_context             Calculate the APA context feature
 classification_model    Select a classification model
 extract_seq             Extract sequence around ploy(A) sites
+feature_rank            Rank the individual feature for the predict
+                        accuracy
+feature_selection       Select the feature selection algorithm
 geneinfo                Extract annotation information for ploy(A)
                         sites
 gram                    Compute the occurrence number of K-grams
+model_rank              Rank the classification model by performance
 nupop                   Compute nucleosome occupancy scores base on
                         sequence information
 predict_result          Evaluate the classification model
@@ -22,5 +26,3 @@ roku_modeH              Calculate the information entropy(H) and
                         adjusted information entropy(modeH)
 select_tsPA             Select the tissue-specific or constitutive
                         poly(A) sites
-svmrfe                  Feature selection with the SVM Recursive
-                        Feature Elimination (RFE) algorithm

@@ -14,5 +14,5 @@ Description: TSAPA is an R package for identification of tissue-specific alterna
 License: GPL (>= 2)
 LazyData: true
 Depends: R (>= 3.1.0), e1071, TCC, seqinr, stringr, Biostrings, NuPoP,
-        adabag, randomForest
-Built: R 3.3.2; ; 2017-11-05 12:39:05 UTC; windows
+        adabag, randomForest, Boruta
+Built: R 3.3.2; ; 2017-12-26 14:08:37 UTC; windows
