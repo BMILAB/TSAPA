@@ -1,4 +1,5 @@
 apa_context	apa_context
+balanced_data	balanced_data
 classification_model	classification_model
 extract_seq	extract_seq
 feature_rank	feature_rank
@@ -9,8 +10,10 @@ geneinfo	geneinfo
 Generic_model	Generic_model
 gram	gram
 Intergenic_model	Intergenic_model
+mapPA2GFF	mapPA2GFF
 model_rank	model_rank
 nupop	nupop
+parseGFF	parseGFF
 predict_result	predict_result
 pwm	pwm
 pwm_feature	pwm_feature

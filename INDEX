@@ -7,6 +7,7 @@ Intergenic_model        Predict tissue-specific poly(A) sites in
                         intergenic regions
 Zcurve                  Calculate the Zcurve for sequence
 apa_context             Calculate the APA context feature
+balanced_data           Balanced data for the unbalanced problem
 classification_model    Select a classification model
 extract_seq             Extract sequence around ploy(A) sites
 feature_rank            Rank the individual feature for the predict
@@ -15,9 +16,11 @@ feature_selection       Select the feature selection algorithm
 geneinfo                Extract annotation information for ploy(A)
                         sites
 gram                    Compute the occurrence number of K-grams
+mapPA2GFF               Map ploy(A) site to annotation file
 model_rank              Rank the classification model by performance
 nupop                   Compute nucleosome occupancy scores base on
                         sequence information
+parseGFF                Normalize the annotation file
 predict_result          Evaluate the classification model
 pwm                     Calculate the position weight matrix
 pwm_feature             Calculate the PWM value of motifs in a given
