@@ -15,4 +15,4 @@ License: GPL (>= 2)
 LazyData: true
 Depends: R (>= 3.1.0), e1071, TCC, seqinr, stringr, Biostrings, NuPoP,
         adabag, randomForest, Boruta, DMwR, GenomicFeatures
-Built: R 3.3.2; ; 2018-01-02 14:58:26 UTC; windows
+Built: R 3.3.2; ; 2018-01-05 08:57:48 UTC; windows
