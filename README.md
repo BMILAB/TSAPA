@@ -10,17 +10,15 @@ Mandatory
 
 * R (>3.1). [R 3.3.3](https://www.r-project.org/) is recommended.
 
-Download 
----------
-
-* Users can download the TSAPA R package and put this package to the R:/library on the local computer.
-
 Install 
 ---------
 
-* Firstly, users should install the Depend R package(e1071, TCC, seqinr, stringr, Biostrings, NuPoP, adabag, randomForest). Next, in the console of R, run this code:
+* Firstly, users should install the Depend R package([e1071](https://CRAN.R-project.org/package=e1071), [TCC](http://www.bioconductor.org/packages/release/bioc/html/TCC.html), [seqinr](https://CRAN.R-project.org/package=seqinr ), [stringr](https://CRAN.R-project.org/package=stringr), [Biostrings](http://www.bioconductor.org/packages/release/bioc/html/Biostrings.html), [NuPoP](http://master.bioconductor.org/packages/release/bioc/html/NuPoP.html), [adabag](https://CRAN.R-project.org/package=adabag), [randomForest](https://CRAN.R-project.org/package=randomForest), [Boruta](https://CRAN.R-project.org/package=Boruta)).
+ Next, in the console for R, run this code:
 ```
-library(TSAPA)
+install.packages("devtools")
+library(devtools)
+install_github("BMILAB/TSAPA")
 ```
 Congratulate! This TSAPA package installed complete on the local computer.
 
@@ -42,6 +40,24 @@ pa_data <- select_tsPA(data,1,1,0.8)
 
 Section 2
 ---------
+* If user have the annotation file  gff3 or gtf file format, to obtain the standard annotations file.
+```
+file <- system.file("extdata","rice_gff7_japonica.gff3",package = "TSAPA")
+chrLenFile <- system.file("extdata","rice_gff7.chrlen.csv",package = "TSAPA")
+gff <- parseGFF(file=file,format='gff3',chrLenFile=chrLenFile,ofilePre=NULL)
+```
+* User can map the ploy(A) site information to standard annotation file.
+```
+file <- system.file("extdata","rice_gff7_japonica.gff3",package = "TSAPA")
+chrLenFile <- system.file("extdata","rice_gff7.chrlen.csv",package = "TSAPA")
+gff <- parseGFF(file=file,format='gff3',chrLenFile=chrLenFile,ofilePre=NULL)
+gff <- gff$ftrs
+pac <- gff[1:10000,c('chr','strand','ftr_start')]
+colnames(pac) <- c('chr','strand','coord')
+pac$leaf <- 'leaf'
+pac$root <- 'root'
+pac2 <- mapPA2GFF(pac,gff)
+```
 * With the annotation file and the information table of ploy(A) sites, to obtain the APA feature.
 ```
 path <- system.file("extdata","annotation.csv",package = "TSAPA")
@@ -54,7 +70,7 @@ apa_feature <- apa_context(annotation,tsPA)
 ```
 genome <- read.table(system.file("extdata","japonica.csv",package = "TSAPA"),sep=",",header=T,stringsAsFactors = FALSE)
 pagene <- read.table(system.file("extdata","annotation.csv",package = "TSAPA"),sep=",",header=T,stringsAsFactors = FALSE)
-> gene_info <- geneinfo(genome,pagene,12429)
+gene_info <- geneinfo(genome,pagene,12429)
 ```
 * Given a genome sequence file and a list of poly(A) sites, user can extracts the sequences of ploy(A) sites.
 ```
@@ -75,19 +91,37 @@ fhmm_feature <- FHMM_feature(6,system.file("extdata","sample.fasta",package = "T
 pwm_model <- pwm(system.file("extdata","6-motif.fasta",package = "TSAPA"))
 pwmfeature <- pwm_feature(6,system.file("extdata","sample.fasta",package = "TSAPA"),pwm_model)
 ```
-* With the file of feature space, user can use SVM-RFE to feature selection.
+* With the file of feature space, users can use feature selection algorithm.
 ```
-load(system.file("data","svmrfe_data.Rdata",package = "TSAPA"))
-feature_rank <- svmrfe(svmrfe_data)
+load(system.file("data","feature_selection_data.Rdata",package = "TSAPA"))
+feature <- feature_selection(feature_selection_data,2)
+```
+* Users can test the accuracy of individual feature with Adaboost classification model and ranks the individual feature for the predict accuracy.
+```
+load(system.file("data","features_specific.Rdata",package = "TSAPA"))
+load(system.file("data","features_unspecific.Rdata",package = "TSAPA"))
+name <- c('Kgram','APAcontext','Conservation_score','FHMM','Zcurve','Nucleosome_Positioning','PWM','Secondary_structure')
+featurerank <- feature_rank(features_specific,features_unspecific,name,normalized = T)
+```
+* To solve the unbalanced classification problem.
+```
+load(system.file("data","unbalanced_train_data.Rdata",package = "TSAPA"))
+newdata<-balanced_data(unbalanced_train_data.Rdata,200,200)
 ```
 
 Section 3
 ---------
+* For training dataset and testing dataset, users can test the performance of classification model.
+```
+load(system.file("data","train.Rdata",package = "TSAPA"))
+load(system.file("data","test.Rdata",package = "TSAPA"))
+modelrank <- model_rank(train,test,normalized = F)
+```
 * Providing the feature file, users can use the real dataset to customize the classification model. 
 ```
 load(system.file("data","features_specific.Rdata",package = "TSAPA"))
 load(system.file("data","features_unspecific.Rdata",package = "TSAPA"))
-data<-data.frame(rbind(features_specific,features_unspecific),lable=c(rep("+1",nrow(features_specific)),rep("-1",nrow(features_unspecific))))
+data<-data.frame(rbind(features_specific,features_unspecific),label=c(rep("+1",nrow(features_specific)),rep("-1",nrow(features_unspecific))))
 tem <- sample(2,nrow(data),replace=TRUE,prob=c(0.75,0.25))
 train <- data[tem==1,]
 test<-data[tem==2,]
