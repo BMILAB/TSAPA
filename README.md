@@ -1,37 +1,41 @@
-# TSAPA
-README for TSAPA
+TSAPA R package
 ====================
-TSAPA is an R package for identification of tissue-specific alternative polyadenylation sites in plants. This package can identify tissue-specific and constitutive poly(A) sites (tsPAs and csPAs) using the information entropy method. A generic model for rice japonica has been trained and integrated in TSAPA, which can be directly applied to predict tsPAs from any new data of rice japonica without additional inputs. TSAPA also allows users to customize the classification model by selecting desirable features or classifiers for model training on their own data. Given a list of poly(A) sites and the corresponding reference genome sequence, TSAPA is capable of predicting tsPAs for species other than rice japonica. TSAPA can also be used to identify and predict tsPAs in intergenic regions.
 
-Install TSAPA
+Identification of Tissue-Specific Alternative Polyadenylation sites in plants
+
+About
+====================
+TSAPA is an open-source R package to identify the tissue-specific alternative polyadenylation sites in plants. This package can identify tissue-specific and constitutive poly(A) sites (tsPAs and csPAs) using the information entropy method. A generic model for rice japonica has been trained and integrated in TSAPA, which can be directly applied to predict tsPAs from any new data of rice japonica without additional inputs. TSAPA also allows users to customize the classification model by selecting desirable features or classifiers for model training on their own data. Given a list of poly(A) sites and the corresponding reference genome sequence, TSAPA is capable of predicting tsPAs for species other than rice japonica. TSAPA can also be used to identify and predict tsPAs in intergenic regions.
+
+Installing TSAPA
 =============
 Mandatory 
 ---------
 
 * R (>3.1). [R 3.3.3](https://www.r-project.org/) is recommended.
 
-Install 
+Required R Packages
 ---------
+* [e1071](https://CRAN.R-project.org/package=e1071), [TCC](http://www.bioconductor.org/packages/release/bioc/html/TCC.html), [seqinr](https://CRAN.R-project.org/package=seqinr ), [stringr](https://CRAN.R-project.org/package=stringr), [Biostrings](http://www.bioconductor.org/packages/release/bioc/html/Biostrings.html), [NuPoP](http://master.bioconductor.org/packages/release/bioc/html/NuPoP.html), [adabag](https://CRAN.R-project.org/package=adabag), [randomForest](https://CRAN.R-project.org/package=randomForest), [Boruta](https://CRAN.R-project.org/package=Boruta), [DMwR](https://CRAN.R-project.org/package=DMwR), [GenomicFeatures](http://www.bioconductor.org/packages/release/bioc/html/GenomicFeatures.html)
 
-* Firstly, users should install the Depend R package([e1071](https://CRAN.R-project.org/package=e1071), [TCC](http://www.bioconductor.org/packages/release/bioc/html/TCC.html), [seqinr](https://CRAN.R-project.org/package=seqinr ), [stringr](https://CRAN.R-project.org/package=stringr), [Biostrings](http://www.bioconductor.org/packages/release/bioc/html/Biostrings.html), [NuPoP](http://master.bioconductor.org/packages/release/bioc/html/NuPoP.html), [adabag](https://CRAN.R-project.org/package=adabag), [randomForest](https://CRAN.R-project.org/package=randomForest), [Boruta](https://CRAN.R-project.org/package=Boruta)).
- Next, in the console for R, run this code:
+Installation
+---------
+* Install the R package using the following commands on the R console:
 ```
 install.packages("devtools")
 library(devtools)
 install_github("BMILAB/TSAPA")
+library(TSAPA)
 ```
-Congratulate! This TSAPA package installed complete on the local computer.
 
-
-Usage TSAPA
+Using TSAPA
 =============
-In TSAPA package, we provide different sample data files to help the users use the package. 
+To get started, the user is recommended to use the example dataset which comes with the packages.
 
 Section 1 
 ---------
-* Firstly, users can use the “row_data” to calculate the information entropy (H) and adjusted information entropy (modeH).
+* Users can use the “row_data” to calculate the information entropy (H) and adjusted information entropy (modeH).
 ```
-library(TSAPA)
 load(system.file("data","row_data.Rdata",package = "TSAPA"))
 data <- roku_modeH(row_data)
 load(system.file("data","sample_data.Rdata",package = "TSAPA"))
@@ -40,13 +44,13 @@ pa_data <- select_tsPA(data,1,1,0.8)
 
 Section 2
 ---------
-* If user have the annotation file  gff3 or gtf file format, to obtain the standard annotations file.
+* Use the annotations file(rice_gff7_japonica.gff3), Users can obtain the standard annotations file.
 ```
 file <- system.file("extdata","rice_gff7_japonica.gff3",package = "TSAPA")
 chrLenFile <- system.file("extdata","rice_gff7.chrlen.csv",package = "TSAPA")
 gff <- parseGFF(file=file,format='gff3',chrLenFile=chrLenFile,ofilePre=NULL)
 ```
-* User can map the ploy(A) site information to standard annotation file.
+* Users can map the information of ploy(A) site to the standard annotation file.
 ```
 file <- system.file("extdata","rice_gff7_japonica.gff3",package = "TSAPA")
 chrLenFile <- system.file("extdata","rice_gff7.chrlen.csv",package = "TSAPA")
