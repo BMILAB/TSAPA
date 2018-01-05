@@ -10,18 +10,15 @@ Mandatory
 
 * R (>3.1). [R 3.3.3](https://www.r-project.org/) is recommended.
 
-Download 
----------
-
-* Users can download the TSAPA R package and put this package to the R:/library on the local computer.
-
 Install 
 ---------
 
 * Firstly, users should install the Depend R package([e1071](https://CRAN.R-project.org/package=e1071), [TCC](http://www.bioconductor.org/packages/release/bioc/html/TCC.html), [seqinr](https://CRAN.R-project.org/package=seqinr ), [stringr](https://CRAN.R-project.org/package=stringr), [Biostrings](http://www.bioconductor.org/packages/release/bioc/html/Biostrings.html), [NuPoP](http://master.bioconductor.org/packages/release/bioc/html/NuPoP.html), [adabag](https://CRAN.R-project.org/package=adabag), [randomForest](https://CRAN.R-project.org/package=randomForest), [Boruta](https://CRAN.R-project.org/package=Boruta)).
- Next, in the console of R, run this code:
+ Next, in the console for R, run this code:
 ```
-library(TSAPA)
+install.packages("devtools")
+library(devtools)
+install_github("BMILAB/TSAPA")
 ```
 Congratulate! This TSAPA package installed complete on the local computer.
 
@@ -43,6 +40,24 @@ pa_data <- select_tsPA(data,1,1,0.8)
 
 Section 2
 ---------
+* If user have the annotation file  gff3 or gtf file format, to obtain the standard annotations file.
+```
+file <- system.file("extdata","rice_gff7_japonica.gff3",package = "TSAPA")
+chrLenFile <- system.file("extdata","rice_gff7.chrlen.csv",package = "TSAPA")
+gff <- parseGFF(file=file,format='gff3',chrLenFile=chrLenFile,ofilePre=NULL)
+```
+* User can map the ploy(A) site information to standard annotation file.
+```
+file <- system.file("extdata","rice_gff7_japonica.gff3",package = "TSAPA")
+chrLenFile <- system.file("extdata","rice_gff7.chrlen.csv",package = "TSAPA")
+gff <- parseGFF(file=file,format='gff3',chrLenFile=chrLenFile,ofilePre=NULL)
+gff <- gff$ftrs
+pac <- gff[1:10000,c('chr','strand','ftr_start')]
+colnames(pac) <- c('chr','strand','coord')
+pac$leaf <- 'leaf'
+pac$root <- 'root'
+pac2 <- mapPA2GFF(pac,gff)
+```
 * With the annotation file and the information table of ploy(A) sites, to obtain the APA feature.
 ```
 path <- system.file("extdata","annotation.csv",package = "TSAPA")
@@ -87,6 +102,11 @@ load(system.file("data","features_specific.Rdata",package = "TSAPA"))
 load(system.file("data","features_unspecific.Rdata",package = "TSAPA"))
 name <- c('Kgram','APAcontext','Conservation_score','FHMM','Zcurve','Nucleosome_Positioning','PWM','Secondary_structure')
 featurerank <- feature_rank(features_specific,features_unspecific,name,normalized = T)
+```
+* To solve the unbalanced classification problem.
+```
+load(system.file("data","unbalanced_train_data.Rdata",package = "TSAPA"))
+newdata<-balanced_data(unbalanced_train_data.Rdata,200,200)
 ```
 
 Section 3
