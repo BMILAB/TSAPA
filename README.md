@@ -162,4 +162,4 @@ reslut
 
 Citation
 ---------
-If you are using TSAPA, please cite: [Ji G, Chen M, Ye W, Zhu S, Ye C, Su Y, Peng H and Wu X (2018) TSAPA: identification of tissue-specific alternative polyadenylation sites in plants, Bioinformatics, 34, 2123-2125.](https://academic.oup.com/bioinformatics/article/34/12/2123/4827682)
+If you are using TSAPA, please cite: [Ji G, Chen M, Ye W, Zhu S, Ye C, Su Y, Peng H and Wu X* (2018) TSAPA: identification of tissue-specific alternative polyadenylation sites in plants, Bioinformatics, 34, 2123-2125.](https://academic.oup.com/bioinformatics/article/34/12/2123/4827682)
